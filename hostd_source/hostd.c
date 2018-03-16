@@ -33,26 +33,28 @@ int main(int argc, char *argv[])
     
     // Load the dispatchlist
     FILE *fp;
-    char buffer[1024];
+    char buffer[255];
     char delim[2]=",";
     const char *token;
-    int c,counter;
+    int counter,c;
 
-    printf("opening file \"dispatch list\"");
+    printf("opening file dispatch list\n");
     fp = fopen("dispatchlist","r");
     
-    while((c = fgetc(fp)!=EOF)){
+    while(!feof(fp)){
         counter = 0;
         //fill buffer with one line
-        while(c!='\n'){
-            buffer[counter] = c;
+        while((c = fgetc(fp))!='\n' &&!feof(fp)){
+            printf("%c",c);
+            buffer[counter++] = c;
         }
+        printf("\n");
         //split buffer into its 8 components
         //arrivalTime,priority,processorTime,mbytes,printers,scanners,modems,cds
         token = strtok(buffer,delim);
         //allocate memory for one process structure
         process * newProcess;
-        newProcess = malloc(sizeof(newProcess));
+        newProcess = malloc(sizeof(process));
         
         for(int i =0;i<8;i++){
             printf("token at %i is %s\n",i,token);
@@ -68,18 +70,20 @@ int main(int argc, char *argv[])
             }
             token =strtok(NULL,delim);
         }
+        // Add each process structure instance to the job dispatch list queue
 
 
         //clear buffer for next line
-        buffer[0]='\0';
+        for(int j = 0;j<255;j++){
+            buffer[j]=' ';
+        }
     }
     printf("closing file\n");
     fclose(fp);
 
 
 
-    // Add each process structure instance to the job dispatch list queue
-
+    
     // Iterate through each item in the job dispatch list, add each process
     // to the appropriate queues
 
