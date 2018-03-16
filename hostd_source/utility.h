@@ -22,10 +22,16 @@
 // Processes structure containing all of the process details parsed from the 
 // input file, should also include the memory address (an index) which indicates
 // where in the resources memory array its memory was allocated
-// typedef struct {
-//  ...
-//  ...
-// } process;
+typedef struct proc{
+int arrivalTime;
+int priority;
+int processorTime;
+int mbytes;
+int printers;
+int scanners;
+int modems;
+int cds;
+} process;
 
 
 // Include your relevant functions declarations here they must start with the 
