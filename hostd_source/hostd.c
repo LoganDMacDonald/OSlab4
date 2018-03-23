@@ -45,10 +45,8 @@ int main(int argc, char *argv[])
         counter = 0;
         //fill buffer with one line
         while((c = fgetc(fp))!='\n' &&!feof(fp)){
-            printf("%c",c);
             buffer[counter++] = c;
         }
-        printf("\n");
         //split buffer into its 8 components
         //arrivalTime,priority,processorTime,mbytes,printers,scanners,modems,cds
         token = strtok(buffer,delim);
@@ -57,7 +55,6 @@ int main(int argc, char *argv[])
         newProcess = malloc(sizeof(process));
         
         for(int i =0;i<8;i++){
-            printf("token at %i is %s\n",i,token);
             switch(i){
                 case 0:newProcess->arrivalTime = atoi(token);break;
                 case 1:newProcess->priority = atoi(token);break;
@@ -71,7 +68,8 @@ int main(int argc, char *argv[])
             token =strtok(NULL,delim);
         }
         // Add each process structure instance to the job dispatch list queue
-
+        printf("%i,%i,%i,%i,%i,%i,%i,%i-EOL\n",newProcess->arrivalTime,newProcess->priority,newProcess->processorTime,newProcess->mbytes,newProcess->printers,\
+        newProcess->scanners,newProcess->modems,newProcess->cds);
 
         //clear buffer for next line
         for(int j = 0;j<255;j++){
