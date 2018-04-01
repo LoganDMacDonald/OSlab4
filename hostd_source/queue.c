@@ -8,16 +8,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "queue.h"
+#include "utility.h"
+
 
 // Define your FIFO queue functions here, these will most likely be the
 // push and pop functions that you declared in your header file
 
 
 
- node_t *push(node_t *head, process proc)
+ node *push(node *head, process proc)
  {
      //Start at the head of the list
-      node_t * visiting = head;
+      node * visiting = head;
 
       //Go to the last node
       if (visiting != NULL);
@@ -25,8 +27,8 @@
       { visiting = visiting->next; }
 
     //Create a new node, and attach it to the list
-      node_t * new_node;
-      new_node = malloc(sizeof(node_t));
+      node * new_node;
+      new_node = malloc(sizeof(node));
       new_node->proc = proc;
       visiting->next = new_node;
 
@@ -36,10 +38,10 @@
 
 
 
- node_t *pop(node_t *head)
+ node *pop(node *head)
  {
      //Get the head of the list
-    node_t * visiting = head;
+    node * visiting = head;
 
     //Set the head to the child of the head
     if (visiting != NULL)
