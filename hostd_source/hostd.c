@@ -22,15 +22,14 @@
 #define MEMORY 1024
 
 // Put global environment variables here
-
+node *headDispatch, *tailDispatch, *headRealtime, *tailRealtime, *headq1,*tailq1,*headq2,*tailq2,*headq3,*tailq3;
 
 
 // Define functions declared in hostd.h here
 
-int main(int argc, char *argv[])
+int main(void)
 {
     // ==================== YOUR CODE HERE ==================== //
-    
     // Load the dispatchlist
     FILE *fp;
     char buffer[255];
@@ -71,6 +70,9 @@ int main(int argc, char *argv[])
         printf("%i,%i,%i,%i,%i,%i,%i,%i-EOL\n",newProcess->arrivalTime,newProcess->priority,newProcess->processorTime,newProcess->mbytes,newProcess->printers,\
         newProcess->scanners,newProcess->modems,newProcess->cds);
 
+
+        // add the whole proc structure into the initial queue
+        
         //clear buffer for next line
         for(int j = 0;j<255;j++){
             buffer[j]=' ';
@@ -88,7 +90,11 @@ int main(int argc, char *argv[])
     // Allocate the resources for each process before it's executed
 
     // Execute the process binary using fork and exec
+    pid_t pid = fork();
 
+    if (pid == 0){
+        execv("process",NULL);
+    } 
     // Perform the appropriate signal handling / resource allocation and de-alloaction
 
     // Repeat until all processes have been executed, all queues are empty
